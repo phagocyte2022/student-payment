@@ -15,7 +15,8 @@ public class StudentOrderServiceTest {
 
 
     @Test
-    public void test1() {
-        service.test();
+    public void testService() {
+        service.testSave();
+        service.testGet();
     }
 }
