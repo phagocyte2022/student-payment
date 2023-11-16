@@ -134,6 +134,9 @@ CREATE TABLE jc_student_order_tmp
     h_building varchar(10) not null,
     h_extension varchar(10),
     h_apartment varchar(10),
+    h_passport_seria varchar(10) not null,
+    h_passport_number varchar(10) not null,
+    h_passport_date date not null,
 
     w_sur_name varchar(100) not null,
     w_given_name varchar(100) not null,
@@ -144,9 +147,12 @@ CREATE TABLE jc_student_order_tmp
     w_building varchar(10) not null,
     w_extension varchar(10),
     w_apartment varchar(10),
+    w_passport_seria varchar(10) not null,
+    w_passport_number varchar(10) not null,
+    w_passport_date date not null,
 
-    PRIMARY KEY (student_order_id)
+    PRIMARY KEY (student_order_id),
     FOREIGN KEY (h_street_code) REFERENCES jc_street(street_code) ON DELETE RESTRICT,
-    FOREIGN KEY (w_street_code) REFERENCES jc_street(street_code) ON DELETE RESTRICT,
+    FOREIGN KEY (w_street_code) REFERENCES jc_street(street_code) ON DELETE RESTRICT
 
 );

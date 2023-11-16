@@ -2,10 +2,7 @@ package edu.javacourse.student.business;
 
 import edu.javacourse.student.dao.StreetRepository;
 import edu.javacourse.student.dao.StudentOrderRepository;
-import edu.javacourse.student.domain.Address;
-import edu.javacourse.student.domain.Person;
-import edu.javacourse.student.domain.Street;
-import edu.javacourse.student.domain.StudentOrder;
+import edu.javacourse.student.domain.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +25,8 @@ public class StudentOrderService
     @Transactional
     public void testSave() {
         StudentOrder so = new StudentOrder();
-        so.setHusband(buildPerson(false));
-        so.setWife(buildPerson(true));
+        so.setHusband(buildAdult(false));
+        so.setWife(buildAdult(true));
         dao.save(so);
     }
 
@@ -39,8 +36,8 @@ public class StudentOrderService
         LOG.info(sos.get(0).getWife().getGivenName());
     }
 
-    private Person buildPerson (boolean wife){
-        Person p = new Person();
+    private Adult buildAdult (boolean wife){
+        Adult p = new Adult();
         p.setDateOfBirth(LocalDate.now());
         Address a = new Address();
         a.setPostCode("NW16XE");
@@ -55,10 +52,16 @@ public class StudentOrderService
             p.setSurName("Doe");
             p.setGivenName("Jane");
             p.setPatronymic("Peterson");
+            p.setPassportSeria("WIFE-S");
+            p.setPassportNumber("WIFE-N");
+            p.setIssueDate(LocalDate.now());
         } else {
             p.setSurName("Doe");
             p.setGivenName("John");
             p.setPatronymic("Jamesson");
+            p.setPassportSeria("HUSBAND-S");
+            p.setPassportNumber("HUSBAND-N");
+            p.setIssueDate(LocalDate.now());
         }
 
         return p;
