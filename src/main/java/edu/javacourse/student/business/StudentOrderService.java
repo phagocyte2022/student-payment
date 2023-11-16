@@ -1,7 +1,10 @@
 package edu.javacourse.student.business;
 
+import edu.javacourse.student.dao.StreetRepository;
 import edu.javacourse.student.dao.StudentOrderRepository;
+import edu.javacourse.student.domain.Address;
 import edu.javacourse.student.domain.Person;
+import edu.javacourse.student.domain.Street;
 import edu.javacourse.student.domain.StudentOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +22,8 @@ public class StudentOrderService
 
     @Autowired
     private StudentOrderRepository dao;
+    @Autowired
+    private StreetRepository daoStreet;
 
     @Transactional
     public void testSave() {
@@ -37,6 +42,15 @@ public class StudentOrderService
     private Person buildPerson (boolean wife){
         Person p = new Person();
         p.setDateOfBirth(LocalDate.now());
+        Address a = new Address();
+        a.setPostCode("NW16XE");
+        a.setBuilding("221");
+        a.setExtension("b");
+        a.setApartment("11");
+        p.setAddress(a);
+        Street one = daoStreet.getOne(1L);
+        a.setStreet(one);
+
         if (wife){
             p.setSurName("Doe");
             p.setGivenName("Jane");
