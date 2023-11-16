@@ -3,6 +3,7 @@ package edu.javacourse.student.domain;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Entity
@@ -73,11 +74,15 @@ public class StudentOrder
 
     @Column(name = "certificate_number")
     private String certificateNumber;
-    @Column(name = "marriage_date")
-    private LocalDate marriageDate;
+
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     @JoinColumn(name = "register_office_id")
     private RegisterOffice registerOffice;
+    @Column(name = "marriage_date")
+    private LocalDate marriageDate;
+
+    @OneToMany(cascade = {CascadeType.REFRESH, CascadeType.REMOVE}, fetch = FetchType.LAZY, mappedBy = "studentOrder")
+    private List<StudentOrderChild> children;
 
     public StudentOrder (){
 
@@ -145,5 +150,13 @@ public class StudentOrder
 
     public void setRegisterOffice(RegisterOffice registerOffice) {
         this.registerOffice = registerOffice;
+    }
+
+    public List<StudentOrderChild> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<StudentOrderChild> children) {
+        this.children = children;
     }
 }
